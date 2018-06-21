@@ -1,4 +1,6 @@
-import { initializeStore } from '../domain/store'
+import React from 'react'
+
+import { initializeStore, exampleInitialState } from '../domain/store'
 
 const isServer = typeof window === 'undefined'
 const __NEXT_REDUX_STORE__ = '__NEXT_REDUX_STORE__'
@@ -16,17 +18,23 @@ function getOrCreateStore(initialState) {
   return window[__NEXT_REDUX_STORE__]
 }
 
-export default (App) => {
-  return class Redux extends React.Component {
+export type Store = ReturnType<typeof getOrCreateStore>
+
+type Props = { reduxStore: Store }
+
+const withReduxStore = (Component: React.ComponentClass<Props>) => {
+  return class Redux extends React.Component<Props> {
+    private reduxStore
+
     static async getInitialProps (appContext) {
-      const reduxStore = getOrCreateStore()
+      const reduxStore = getOrCreateStore(exampleInitialState)
 
       // Provide the store to getInitialProps of pages
       appContext.ctx.reduxStore = reduxStore
 
       let appProps = {}
-      if (App.getInitialProps) {
-        appProps = await App.getInitialProps(appContext)
+      if ((Component as any).getInitialProps) {
+        appProps = await (Component as any).getInitialProps(appContext)
       }
 
       return {
@@ -41,7 +49,15 @@ export default (App) => {
     }
 
     render() {
-      return <App {...this.props} reduxStore={this.reduxStore} />
+      return (
+        <Component {...this.props} reduxStore={this.reduxStore} />
+      )
     }
   }
 }
+
+export default withReduxStore
+
+export const mapDispatchToProps = dispatch => ({ dispatch })
+
+export type Dispatchable<P> = P & ReturnType<typeof mapDispatchToProps>

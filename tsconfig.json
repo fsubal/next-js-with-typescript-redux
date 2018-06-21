@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "experimentalDecorators": false,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowUnusedLabels": false,
+        "forceConsistentCasingInFileNames": true,
+        "alwaysStrict": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "es5",
+        "sourceMap": true,
+        "lib": [
+            "es2015",
+            "es2016",
+            "es2017",
+            "esnext",
+            "dom",
+        ]
+    }
+}

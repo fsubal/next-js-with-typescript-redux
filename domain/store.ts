@@ -2,10 +2,16 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 
-const exampleInitialState = {
+export const exampleInitialState = {
   lastUpdate: 0,
   light: false,
   count: 0
+}
+
+export type State = {
+  lastUpdate: number,
+  light: boolean,
+  count: number,
 }
 
 export const actionTypes = {

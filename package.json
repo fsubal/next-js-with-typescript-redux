@@ -7,6 +7,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/next": "^6.0.2",
+    "@types/react": "^16.4.1",
+    "@types/react-redux": "^6.0.2",
     "next": "^6.0.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -15,5 +18,14 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.1.0"
   },
-  "license": "ISC"
+  "babel": {
+    "presets": [
+      "next/babel",
+      "@zeit/next-typescript/babel"
+    ]
+  },
+  "devDependencies": {
+    "@zeit/next-typescript": "^1.1.0",
+    "typescript": "^2.9.2"
+  }
 }

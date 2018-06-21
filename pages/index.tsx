@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { startClock, serverRenderClock } from '../domain/store'
-import Examples from '../components/examples'
+import Clock from '../components/clock'
+import { Dispatchable, mapDispatchToProps } from '../lib/with-redux-store';
 
-class Index extends React.Component {
+interface Props {}
+
+class Index extends React.Component<Dispatchable<Props>> {
+  private timer: NodeJS.Timer
+
   static getInitialProps ({ reduxStore, req }) {
     const isServer = !!req
     reduxStore.dispatch(serverRenderClock(isServer))
@@ -22,9 +27,9 @@ class Index extends React.Component {
 
   render () {
     return (
-      <Examples />
+      <Clock />
     )
   }
 }
 
-export default connect()(Index)
+export default connect(null, mapDispatchToProps)(Index)
